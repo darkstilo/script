@@ -170,6 +170,6 @@ funreboot
 elif [[ ${timer} -gt "0" ]]; then
 funtimer
 else
-screen -dmS mining cpuminer -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman} -t ${core} -R 30${coin}
+sudo screen -dmS mining cpuminer -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman} -t ${core} -R 30${coin}
 fi
 echo -e "\033[44;1;37m Procedimento concluido, e Mineracao Iniciada! \033[0m"
