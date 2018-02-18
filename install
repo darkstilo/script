@@ -92,7 +92,7 @@ fi
 #/* -------->>> AVERIGUANDO PARAMETROS <<<---------*/
 #/* -----------------------------------------------*/
 unset help
-[[ "$(echo ${wallet})" != "" ]] && walle=" u- ${wallet}"
+[[ "$(echo ${wallet})" != "" ]] && walle=" -u ${wallet}"
 [[ "$(echo ${email})" != "" ]] && eman=" -p ${email}"
 [[ "$(echo ${moeda})" != "" ]] && coin=" c=${moeda}"
 [[ "$(echo ${algoritimo})" = "" ]] && echo -ne "\033[1;31mDigite o Algoritmo: \033[1;37m" && read algoritimo && help=1
