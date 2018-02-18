@@ -34,7 +34,9 @@ echo -e "\033[1;37m$0 -a 'algoritmo' -c 'core' -l 'cpu-limit' -s 'stratum' -t 't
 echo -e "\033[1;33mParametros Adicionais:\n\033[1;37m-w 'wallet'\n-e 'email'\n-m 'Moeda'"
 }
 
-#INICIALIZANDO PARAMETROS
+#/* -----------------------------------------------*/
+#/* ------->>> INICIALIZANDO PARAMETROS <<<--------*/
+#/* -----------------------------------------------*/
 entrada=($@)
 for((nu=0; nu<${#entrada[@]}; nu++)); do
 #ALGORITIMO
@@ -48,7 +50,10 @@ for((nu=0; nu<${#entrada[@]}; nu++)); do
 [[ ${entrada[$nu]} = @(-e|-E|-Em|-em) ]] && email=${entrada[$(($nu+1))]}
 [[ ${entrada[$nu]} = @(-m|-M|-Moe|-moe) ]] && moeda=${entrada[$(($nu+1))]}
 done
-#AVERIGUANDO PARAMETROS
+
+#/* -----------------------------------------------*/
+#/* -------->>> AVERIGUANDO PARAMETROS <<<---------*/
+#/* -----------------------------------------------*/
 unset help
 [[ "$(echo ${wallet})" != "" ]] && walle=" u- ${wallet}"
 [[ "$(echo ${email})" != "" ]] && eman=" -p ${email}"
@@ -59,7 +64,10 @@ unset help
 [[ "$(echo ${cpulimit})" = "" ]] && echo -ne "\033[1;31mCPU Limite \033[1;33m(0 para off):\033[1;37m"; read cpulimit && help=1
 [[ "$(echo ${timer})" = "" ]] && echo -ne "\033[1;31mTimer on/stop 30min \033[1;33m(0 para off):\033[1;37m"; read timer && help=1
 [[ "${help}" = "1" ]] && fun_help
-#INSTALANDO MINNER
+
+#/* -----------------------------------------------*/
+#/* ----------->>> INSTALANDO MINNER <<<-----------*/
+#/* -----------------------------------------------*/
 sudo apt-get update >/dev/null
 sudo apt-get install git -y >/dev/null
 sudo apt-get install screen -y >/dev/null
@@ -74,12 +82,21 @@ cd miner
 make 
 cd miner 
 sudo mv minerd /usr/local/bin/
-#INSTALANDO CPU LIMIT
+
+#/* -----------------------------------------------*/
+#/* --------->>> INSTALANDO CPU LIMIT <<<----------*/
+#/* -----------------------------------------------*/
 apt-get install aptitude -y >/dev/null
 aptitude install cpulimit
-#INICIALIZANDO LIMIT
+
+#/* -----------------------------------------------*/
+#/* --------->>> INICIALIZANDO LIMIT <<<----------*/
+#/* -----------------------------------------------*/
 [[ ${cpulimit} -gt "0" ]] && screen -dmS cpu cpulimit -e minerd -l ${cpulimit}
-#EXECUTANDO
+
+#/* -----------------------------------------------*/
+#/* --------->>> EXECUTANDO <<<----------*/
+#/* -----------------------------------------------*/
 if [[ ${timer} -gt "0" ]]; then
 funtimer
 else
