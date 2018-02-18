@@ -6,6 +6,27 @@ clear
 # MINERADOR  ZPOOL BY: FENIX_LINUX
 # EDITED BY: 8TH.
 
+funreboot () {
+apt-get install at -y > /dev/null
+echo -e "Eliminando PIDS"
+ for _pids_ in `atq | awk '{print $1}'`; do
+ atrm $_pids_ > /dev/null 2>&1
+ done
+crontab -r
+echo -e "Parando Processos"
+ for pids in `ps x|grep -v grep|grep minerd`; do
+ kill -9 pids > /dev/null 2>&1
+ done
+echo -e "Iniciando TIMMER"
+echo "#!/bin/bash" > /bin/cron
+echo "[[ ${cpulimit} -gt "0" ]] && screen -dmS cpu cpulimit -e minerd -l ${cpulimit}" >> /bin/cron
+echo "screen -dmS zpool minerd -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman} -t ${core} -R 30${coin}" >> /bin/cron
+echo "sleep ${rebo}m" >> /bin/cron
+echo "at -f /bin/cron now + 15 min" >> /bin/cron
+echo "reboot" >> /bin/cron
+chmod 777 /bin/cron && bash /bin/cron & > /dev/null
+}
+
 funtimer () {
 apt-get install at -y > /dev/null
 echo -e "Eliminando PIDS"
@@ -30,13 +51,11 @@ chmod 777 /bin/cron && bash /bin/cron & > /dev/null
 
 fun_help () {
 echo -e '\033[1;31mMinning SCP 8th\n\033[1;33mModo de Uso!\nUtilize os Parametros na Execussao do Script!'
-echo -e "\033[1;37m$0 -a 'algoritmo' -c 'core' -l 'cpu-limit' -s 'stratum' -t 'timer'"
-echo -e "\033[1;33mParametros Adicionais:\n\033[1;37m-w 'wallet'\n-e 'email'\n-m 'Moeda'"
+echo -e "\033[1;37m$0 -a 'algoritmo' -c 'core' -l 'cpu-limit' -s 'stratum'"
+echo -e "\033[1;33mParametros Adicionais:\n\033[1;37m-w 'wallet'\n-e 'email'\n-m 'Moeda'\n-t 'timer'\n-r 'reboot'"
 }
 
-#/* -----------------------------------------------*/
-#/* ------->>> INICIALIZANDO PARAMETROS <<<--------*/
-#/* -----------------------------------------------*/
+#INICIALIZANDO PARAMETROS
 entrada=($@)
 for((nu=0; nu<${#entrada[@]}; nu++)); do
 #ALGORITIMO
@@ -49,6 +68,7 @@ for((nu=0; nu<${#entrada[@]}; nu++)); do
 [[ ${entrada[$nu]} = @(-w|-W|-Wal|-wal) ]] && wallet=${entrada[$(($nu+1))]}
 [[ ${entrada[$nu]} = @(-e|-E|-Em|-em) ]] && email=${entrada[$(($nu+1))]}
 [[ ${entrada[$nu]} = @(-m|-M|-Moe|-moe) ]] && moeda=${entrada[$(($nu+1))]}
+[[ ${entrada[$nu]} = @(-r|-R|-Reb|-reb) ]] && rebo=${entrada[$(($nu+1))]}
 done
 if [[ "$@" != "" ]]; then
 echo -e "\033[1;31mIniciando Procedimento Com Os Seguintes Valores:\033[1;33m"
@@ -60,8 +80,8 @@ echo -e "\033[1;31mIniciando Procedimento Com Os Seguintes Valores:\033[1;33m"
 [[ "$(echo ${core})" != "" ]] && echo -e "nucleos = ${core}"
 [[ "$(echo ${cpulimit})" != "" ]] && echo -e "cpu-limite = ${cpulimit}"
 [[ "$(echo ${timer})" != "" ]] && echo -e "timer/30 = ${timer}"
+[[ "$(echo ${rebo})" != "" ]] && echo -e "mining/reboot = ${rebo}"
 fi
-
 #AVERIGUANDO PARAMETROS
 unset help
 [[ "$(echo ${wallet})" != "" ]] && walle=" u- ${wallet}"
@@ -94,7 +114,9 @@ sudo mv minerd /usr/local/bin/
 #INICIALIZANDO LIMIT
 [[ ${cpulimit} -gt "0" ]] && screen -dmS cpu cpulimit -e minerd -l ${cpulimit}
 #EXECUTANDO
-if [[ ${timer} -gt "0" ]]; then
+if [[ ${rebo} -gt "0" ]]; then
+funreboot
+elif [[ ${timer} -gt "0" ]]; then
 funtimer
 else
 screen -dmS zpool minerd -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman} -t ${core} -R 30${coin}
