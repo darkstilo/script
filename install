@@ -10,7 +10,7 @@ clear
 # Carteira BTC: 1Mzyt8ucJ1YW8JhQ6te13VWhoiEsTKhZF4
 
 funreboot () {
-apt-get install at -y > /dev/null
+sudo apt-get install at -y > /dev/null
 echo -e "Eliminando PIDS"
  for _pids_ in `atq | awk '{print $1}'`; do
  atrm $_pids_ > /dev/null 2>&1
