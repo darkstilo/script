@@ -27,7 +27,7 @@ echo "#!/bin/bash" > /bin/cron
 echo "[[ ${cpulimit} -gt "0" ]] && screen -dmS cpu cpulimit -e cpuminer -l ${cpulimit}" >> /bin/cron
 echo "sudo screen -dmS mining cpuminer -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman}${core} -R 30${coin}" >> /bin/cron
 echo "sleep ${rebo}m" >> /bin/cron
-echo "at -f /bin/cron now + 2 min" >> /bin/cron
+echo "at -f /bin/cron now + 30 sec" >> /bin/cron
 echo "sudo reboot" >> /bin/cron
 sudo chmod 777 /bin/cron && bash /bin/cron & > /dev/null
 }
@@ -141,18 +141,18 @@ fi
 sleep 2
 clear
 
-echo -e "\033[44;1;37mBaixando CPUMiner-OPT v3.8.2...\033[0m"
-wget -q https://github.com/JayDDee/cpuminer-opt/archive/v3.8.2.tar.gz
+echo -e "\033[44;1;37mBaixando CPUMiner-OPT v3.8.3.3...\033[0m"
+wget -q https://github.com/JayDDee/cpuminer-opt/archive/v3.8.3.3.tar.gz
 sleep 2
 clear
 
-echo -e "\033[44;1;37mExtraindo CPUMiner-OPT v3.8.2...\033[0m"
-tar -zxvf v3.8.2.tar.gz > /dev/null
-cd cpuminer-opt-3.8.2
+echo -e "\033[44;1;37mExtraindo CPUMiner-OPT v3.8.3.3...\033[0m"
+tar -zxvf v3.8.3.3.tar.gz > /dev/null
+cd cpuminer-opt-3.8.3.3
 sleep 2
 clear
 
-echo -e "\033[44;1;37mCompilando CPUMiner-OPT v3.8.2...(pode demorar um pouco)\033[0m"
+echo -e "\033[44;1;37mCompilando CPUMiner-OPT v3.8.3.3...(pode demorar um pouco)\033[0m"
 make distclean || echo clean
 rm -f config.status
 ./autogen.sh || echo done
