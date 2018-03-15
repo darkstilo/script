@@ -17,7 +17,7 @@ echo -e "Eliminando PIDS"
  done
 crontab -r
 echo -e "Parando Processos"
- for pids in `ps x|grep -v grep|grep minerd`; do
+ for pids in `ps x|grep -v grep|grep cpuminer`; do
  kill -9 pids > /dev/null 2>&1
  done
 echo -e "Iniciando TIMMER"
@@ -27,7 +27,7 @@ echo "#!/bin/bash" > /bin/cron
 echo "[[ ${cpulimit} -gt "0" ]] && screen -dmS cpu cpulimit -e cpuminer -l ${cpulimit}" >> /bin/cron
 echo "sudo screen -dmS mining cpuminer -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman}${core} -R 30${coin}" >> /bin/cron
 echo "sleep ${rebo}m" >> /bin/cron
-echo "at -f /bin/cron now + 30 sec" >> /bin/cron
+echo "at -f /bin/cron now + 1 min" >> /bin/cron
 echo "sudo reboot" >> /bin/cron
 sudo chmod 777 /bin/cron && bash /bin/cron & > /dev/null
 }
@@ -40,14 +40,14 @@ echo -e "Eliminando PIDS"
  done
 crontab -r
 echo -e "Parando Processos"
- for pids in `ps x|grep -v grep|grep minerd`; do
+ for pids in `ps x|grep -v grep|grep cpuminer`; do
  kill -9 pids > /dev/null 2>&1
  done
 echo -e "Iniciando TIMMER"
 echo "#!/bin/bash" > /bin/cron
 echo "sudo screen -dmS mining cpuminer -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${eman}${core} -R 30${coin}" >> /bin/cron
 echo "sleep ${timer}m" >> /bin/cron
-echo 'for pids in $(ps x|grep -v grep|grep minerd); do' >> /bin/cron
+echo 'for pids in $(ps x|grep -v grep|grep cpuminer); do' >> /bin/cron
 echo 'kill -9 $pids' >> /bin/cron
 echo 'done' >> /bin/cron
 echo "at -f /bin/cron now + 30 min" >> /bin/cron
