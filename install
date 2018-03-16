@@ -24,7 +24,9 @@ echo -e "Iniciando TIMMER"
 sudo touch /bin/cron
 sudo chmod 777 /bin/cron
 echo "#!/bin/bash" > /bin/cron
-if [[ ${cpulimit} -gt "0" ]]; then echo "screen -dmS cpu cpulimit -e cpuminer -l ${cpulimit}" >> /bin/cron
+if [[ ${cpulimit} -gt "0" ]]; then
+echo "sudo screen -dmS cpu cpulimit -e cpuminer -l ${cpulimit}" >> /bin/cron
+fi
 echo "sudo screen -dmS mining cpuminer -a ${algoritimo} -o stratum+tcp://${stratum}${walle}${pass}${core} -R 30${coin}" >> /bin/cron
 echo "sleep ${rebo}m" >> /bin/cron
 echo "at -f /bin/cron now + 2 min" >> /bin/cron
